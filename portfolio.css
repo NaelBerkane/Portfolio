@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+
+* { box-sizing: border-box; }
+
+/* --- STRUCTURE PRINCIPALE (FLEXBOX) --- */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #F9F7F2;
+    color: #5D4037;
+    
+    /* APPLICATION DU COURS : display: flex */
+    /* On définit le body comme un container flex */
+    display: flex; 
+    
+    /* Par défaut sur PC : row (le menu à gauche, le contenu à droite) */
+    flex-direction: row; 
+}
+
+/* --- ASIDE (Menu) --- */
+aside {
+    width: 280px;
+    height: 100vh;
+    background-color: #EBE5D9;
+    padding: 40px 20px;
+    border-right: 2px solid #A1887F;
+    position: fixed;
+    left: 0; top: 0;
+    
+    /* Pour centrer le contenu du menu verticalement */
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; /* Contenu aligné en haut */
+}
+
+.logo-texte {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    font-family: serif;
+}
+
+aside nav ul { padding: 0; list-style: none; }
+aside nav li { margin-bottom: 15px; }
+
+aside nav a {
+    text-decoration: none;
+    color: #8D6E63;
+    font-weight: bold;
+}
+aside nav a:hover {
+    color: #5D4037;
+    border-left: 3px solid #5D4037;
+    padding-left: 10px;
+    transition: 0.3s;
+}
+
+/* --- MAIN (Contenu) --- */
+main {
+    margin-left: 280px; /* Espace pour le menu fixe */
+    padding: 0 80px 0 80px;
+    width: 100%;
+}
+
+header {
+    padding: 40px 0;
+    margin-bottom: 60px;
+    border-bottom: 3px double #A1887F;
+}
+
+header h1 { margin: 0; font-size: 2.5rem; color: #5D4037; font-family: serif; }
+header p { margin-top: 10px; font-style: italic; color: #8D6E63; }
+
+section { 
+    margin-bottom: 80px; 
+    opacity: 0; animation: apparition 1s forwards;
+}
+
+@keyframes apparition {
+    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(20px); }
+}
+
+h2 {
+    border-bottom: 2px solid #A1887F;
+    padding-bottom: 10px;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+/* --- FLEXBOX POUR LES CARTES --- */
+.conteneur-cartes {
+    /* APPLICATION DU COURS : Container Flex */
+    display: flex;
+    
+    /* Propriété flex-wrap : wrap (retour à la ligne si manque de place) */
+    flex-wrap: wrap; 
+    
+    /* Espace entre les cartes */
+    gap: 30px; 
+}
+
+.carte {
+    background-color: white;
+    min-width: 300px;
+    
+    /* Propriété flex : grow (1) shrink (1) basis (auto) */
+    /* Les cartes vont grandir pour prendre toute la place disponible */
+    flex: 1; 
+    
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px #EBE5D9;
+    transition: 0.2s;
+}
+
+.carte:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #A1887F;
+    border-color: #A1887F;
+}
+
+.etiquette {
+    display: inline-block;
+    font-size: 0.8rem;
+    background-color: #F9F7F2;
+    color: #5D4037;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #A1887F;
+    border-radius: 20px;
+}
+
+.bouton-lien {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #5D4037;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 3px 3px 0px black;
+}
+.bouton-lien:hover {
+    background-color: #8D6E63;
+    box-shadow: 1px 1px 0px black;
+    transform: translateY(2px);
+}
+
+footer {
+    margin-top: 100px;
+    background-color: #EBE5D9;
+    padding: 40px 20px;
+    border-top: 4px double #A1887F;
+    text-align: center;
+    color: #5D4037;
+    border-radius: 20px 20px 0 0;
+}
+.mention-legale {
+    font-size: 0.85rem; font-style: italic; color: #8D6E63; margin-top: 15px;
+}
+
+/* =======================================================
+   APPLICATION DU COURS : MEDIA QUERIES (RESPONSIVE)
+   ======================================================= */
+
+/* Si l'écran fait moins de 900px (Tablettes et Mobiles) */
+@media screen and (max-width: 900px) {
+
+    /* 1. On change la direction du Flexbox principal */
+    body {
+        flex-direction: column; /* Les éléments s'affichent de haut en bas */
+    }
+
+    /* 2. On adapte le menu (Aside) */
+    aside {
+        width: 100%;       /* Prend toute la largeur */
+        height: auto;      /* Hauteur automatique selon le contenu */
+        position: relative;/* N'est plus fixé à gauche, mais coule dans la page */
+        padding: 20px;
+        border-right: none;
+        border-bottom: 2px solid #A1887F;
+        text-align: center; /* Centre le texte du menu */
+    }
+
+    .logo-texte {
+        margin-bottom: 20px;
+        font-size: 2rem;
+    }
+    
+    /* On peut mettre les liens du menu en ligne pour gagner de la place */
+    aside nav ul {
+        display: flex;
+        flex-wrap: wrap; /* Si ça dépasse, ça va à la ligne */
+        justify-content: center; /* Centré */
+        gap: 15px;
+    }
+    
+    aside nav li { margin-bottom: 0; }
+
+    /* 3. On adapte le contenu principal (Main) */
+    main {
+        margin-left: 0; /* On enlève la marge car le menu n'est plus à gauche */
+        padding: 30px;  /* On réduit un peu le padding */
+    }
+
+    header h1 {
+        font-size: 1.8rem; /* On réduit la taille du titre */
+    }
+    
+    /* Le conteneur Flexbox des cartes va passer les cartes les unes sous les autres
+       car la largeur sera trop petite (flex-wrap est déjà activé) */
+}
